@@ -253,12 +253,12 @@ class QuickLogger {
             
             std::string id = fmt::to_string(threadID);
 
-            if(cpu >= 0 && processor_count <= std::thread::hardware_concurrency()){
-                cpu_set_t mask;
-                CPU_ZERO(&mask);
-                CPU_SET(cpu, &mask);
-                sched_setaffinity(0, sizeof(mask), &mask);
-            }
+            // if(cpu >= 0 && processor_count <= std::thread::hardware_concurrency()){
+            //     cpu_set_t mask;
+            //     CPU_ZERO(&mask);
+            //     CPU_SET(cpu, &mask);
+            //     sched_setaffinity(0, sizeof(mask), &mask);
+            // }
 
             Log* newlog =  NULL;
 

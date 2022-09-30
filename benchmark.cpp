@@ -16,11 +16,11 @@ inline void SetCpuAffinity(int cpu)
 
 void benchmark(QuickLogger::QuickLogger &myLogger, int threadID, int cpu, int threads){
     SetCpuAffinity(cpu);
-    int const iters =  1e6;
+    int const iters =  8e7/threads;
     const char* text = "BENCHMARK";
     uint64_t begin = std::chrono::high_resolution_clock::now().time_since_epoch() / std::chrono::nanoseconds(1);
     for(int i = 0 ; i < iters ; i++){
-        if(!myLogger.LogItem(i%QuickLogger::LOG_TYPES, threadID,  "LOGGING {} {} {}", text, i+1, 42.42)){
+        if(!myLogger.LogItem(i%QuickLogger::LOG_TYPES, threadID,  "LOGGING")){
             printf("Unable to log %d!\n", i);
         }
     }
@@ -56,43 +56,10 @@ void run_benchmark(Function && f, int thread_count, int total_cores){
 
 int main(){
 
-    // cpu_set_t mask;
-    // CPU_ZERO(&mask);
-    // CPU_SET(4, &mask);
-    // sched_setaffinity(0, sizeof(mask), &mask);
-
-    // int number_of_threads = 8;
-
-    // QuickLogger::QuickLogger &myLogger = QuickLogger::START_QUICK_LOGGER("", number_of_threads, 1024, false);
-
-    // const int max_value = 1e6;
-
-    for(auto threads : {1, 2, 4, 8}){
+    for(auto threads : {2}){
         run_benchmark(benchmark, threads, 8);
     }
 
-    // uint64_t begin = std::chrono::high_resolution_clock::now().time_since_epoch() / std::chrono::nanoseconds(1);
-
-    // for(int i = 0 ; i < max_value ; i++){
-    //     // printf("Working till here!");
-    //     // if(!QuickLogger::LOG_ERROR<int>(myLogger, i+1)){
-    //     //     printf("Unable to log %d!\n", i+1);
-    //     // }
-    //     // std::this_thread::sleep_for(std::chrono::seconds(1));
-    // }
-
-//    std::this_thread::sleep_for(std::chrono::microseconds(1000));
-
-    // u_int64_t end = std::chrono::high_resolution_clock::now().time_since_epoch() / std::chrono::nanoseconds(1);
-
-    // long int avg_latency = (end-begin)/max_value;
-    // long long int tot_time = end-begin;
-    // printf("\tAverage Latency = %ld nanoseconds\n", avg_latency);
-    // printf("\tTotal Time Taken was %lld nanoseconds\n", tot_time);
-
-    // std::this_thread::sleep_for(std::chrono::seconds(10));
-
-    // QuickLogger::STOP_QUICK_LOGGER(myLogger);
 
     return 0;
 }
