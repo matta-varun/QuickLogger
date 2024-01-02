@@ -10,5 +10,3 @@ The current version of the library achieved lowest latency of 180 nanoseconds pe
 
 # Installation
 To use QuickLogger, simply include the header file in your code and start using it! (You might want to reconfigure include paths in some header files of xenium folder for it to get working in your device, this will be fixed soon)
-
-Detailed Documentation coming soon :)
